@@ -1,0 +1,167 @@
+profile: full
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+learningcenter:
+  ingressDomain: "learningcenter.tap-mc.corp.tanzu"
+
+tap_gui:
+  service_type: ClusterIP
+  ingressEnabled: "true"
+  ingressDomain: "tap-mc.corp.tanzu"
+  app_config:
+    app:
+      baseUrl: http://tap-gui.tap-mc.corp.tanzu
+    integrations:
+      github: # Other integrations available see NOTE below
+        - host: github.com
+          token: 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
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/mingjiex-vmware/tap-catalog/blob/main/catalog-info.yaml
+    backend:
+        baseUrl: http://tap-gui.tap-mc.corp.tanzu
+        cors:
+            origin: http://tap-gui.tap-mc.corp.tanzu
+    supplyChain:
+      enablePlugin: true
+    auth:
+      environment: development
+      allowGuestAccess: true
+      providers:
+        github:
+          development:
+            clientId: op://VMware/GitHub OAUTH Token TAP/username
+            clientSecret: op://VMware/GitHub OAUTH Token TAP/secret
+    proxy:
+      /metadata-store:
+        target: https://metadata-store-app.metadata-store:8443/api/v1
+        changeOrigin: true
+        secure: false
+        headers:
+          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6InJhc0gwazhWMks5TFBXdHNEQzdyamRldHJXcW9ZT2l5YVFaQkdoUzBPYTQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtZXRhZGF0YS1zdG9yZSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLXdyaXRlLWNsaWVudC10b2tlbi02ejRkZyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLXdyaXRlLWNsaWVudCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImYyMjI0OTNiLTZkODktNDM3Ni1hYWIxLTY1NzFjM2ZjYTA1MiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDptZXRhZGF0YS1zdG9yZTptZXRhZGF0YS1zdG9yZS1yZWFkLXdyaXRlLWNsaWVudCJ9.vgGEuipCL-jjn4AomU0pzohc3WGjpW1TGsISVD66_3cGDXwmwYQZ6px_NjeBe0Ylchga5eeEj10uHdjeWtDmXn_S5sr2M8P84FYMQD-4g2XhDezja8AFwZygcBJzmTbZSx9DH0OsyWToUDoaGjHuF9yNlOhtn7lZtxE85snzBMjTrVpFbfRWoy2HXv7imY3HVy2gV6yx9YS2NfQEkklwJmwDrldpx7t9hkvqgoUev6BXAUHs0HeTcKYQ2-3D0BPX2QYrz2GPHkhpPQu81kkt52BXz3MEzwt06RPqJubRKPfgFpZqdAX8SfMffOpmqnSo0Uwm_8cRJyWMIKaYFjZovw"
+          X-Custom-Source: project-star
+    kubernetes:
+      serviceLocatorMethod:
+        type: 'multiTenant'
+      clusterLocatorMethods:
+        - type: 'config'
+          clusters:
+            - url: https://192.168.220.8:6443 
+              name: build
+              authProvider: serviceAccount
+              serviceAccountToken: eyJhbGciOiJSUzI1NiIsImtpZCI6InJhc0gwazhWMks5TFBXdHNEQzdyamRldHJXcW9ZT2l5YVFaQkdoUzBPYTQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJ0YXAtZ3VpIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InRhcC1ndWktdmlld2VyLXRva2VuLWtkamttIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InRhcC1ndWktdmlld2VyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiYjU4N2U0MDAtZTliMS00YTc0LTgzMmEtYmMyYmZmMzI4ZjkzIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OnRhcC1ndWk6dGFwLWd1aS12aWV3ZXIifQ.vTWe_Ix5LPQ1j4bvU1e7n6HzoXqHR7TmKyV5vmMBqqNIidhoQDK5Ni_yU6XwQnMOVsEcZxgUDFGwfBUx1rOgbL1yGF1xKJXgUDI9BsHknDp5IglhgLFCgD6LDjs1zmQlMdxuvrT7M_W0X-Z9KnLmC20p1MBVI-szyawEl0JNIOfqd-KYiv5tCR1n4At5aWWZLP_mkr5dAU245ARZk53uQOFwoCel8l17CYdBowvrOErQ5mK7IOa-1-11lHa4Hushl0efZQQ8uTpVRmUtlfzwyf7nu12-GdauUCgC76T_-WUgLgIs9mJAIgyfNGThvmWpD_6horyXfSMPOM0WKnJIJw
+              skipTLSVerify: true
+            - url: https://192.168.220.9:6443
+              name: live
+              authProvider: serviceAccount
+              serviceAccountToken: eyJhbGciOiJSUzI1NiIsImtpZCI6IjlzdEZBT3NWSkdjdGZNUHRnclZUaDRlZy0zY1kwSnRLY3VKMmJ0Y0RVdTQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJ0YXAtZ3VpIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InRhcC1ndWktdmlld2VyLXRva2VuLXg1c3JwIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InRhcC1ndWktdmlld2VyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiODdkZGEzMmYtMGE1Zi00MTlmLThiYWItN2RlMmNmZDlhYjNjIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OnRhcC1ndWk6dGFwLWd1aS12aWV3ZXIifQ.uTbnVvUQmCYm5h0FdU8jAdyKi_yjumlTrRo5F_ZUjptutymrwVFExyX1PyV0rzc2UpDwouLPsKr0FvVnCiJIVz97vUELHvsigJf8GggRfetxprHXxdsw1zL2AqrnCSzD3OsGtHAkRUwMYZPRx8RoRR3coKkS7QCmDXRj7gVLieoLvXdGHlZ7LTph_idnnmUnGNJ1MKKexJgIDrg4juK2SCqapAW_-xUdTzfPZWOnFYSnRNRLCr4fO5Y5f98accE6zI4I2ozY32HulSOWtVHFpv8GxTw12hjQIGg389D5OTSzlQKeqcWWc2Qcty4Bh63zg3WIwvT1lU2bVuxvMya-4w
+              skipTLSVerify: true
+
+metadata_store:
+  ingress_enabled: "true"
+  ingress_domain: "tap-mc.corp.tanzu"
+
+appliveview:
+  ingressEnabled: true
+  ingressDomain: "tap-mc.corp.tanzu"
+
+buildservice:
+  kp_default_repository: "harbor.corp.tanzu/tap/build-service"
+  kp_default_repository_username: "tkgadmin@corp.tanzu"
+  kp_default_repository_password: "VMware1!"
+  exclude_dependencies: true
+
+shared:
+  ingress_domain: "tap-mc.corp.tanzu"
+  ca_cert_data: |
+    -----BEGIN CERTIFICATE-----
+    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
+    -----END CERTIFICATE-----
+
+supply_chain: testing_scanning
+
+ootb_supply_chain_testing_scanning:
+  registry:
+    server: "harbor.corp.tanzu"
+    repository: "tap"
+  gitops:
+    server_address: "https://github.com/"
+    repository_owner: "mingjiex-vmware"
+    repository_name: "tap-gitops"
+    branch: "staging"
+    commit_strategy: pull_request
+    ssh_secret: git-https
+    pull_request:
+      server_kind: github
+      commit_branch: ""
+      pull_request_title: "Ready for review"
+      pull_request_body: "Generated by TAP supply chain"
+  cluster_builder: default
+  service_account: default
+#  scanning:
+#    image:
+#      template: snyk-private-image-scan-template
+#      policy: scan-policy 
+
+scanning:
+  metadataStore:
+    url: ""
+
+grype:
+  namespace: "developer-ns"
+  targetImagePullSecret: "tap-registry"
+  metadataStore:
+    url: https://metadata-store.tap-mc.corp.tanzu
+    caSecret:
+        name: store-ca-cert
+        importFromNamespace: metadata-store-secrets
+    authSecret:
+        name: store-auth-token
+        importFromNamespace: metadata-store-secrets
+
+cnrs:
+  domain_name: "staging.tap-mc.corp.tanzu"
+
+appliveview_connector:
+  backend:
+    sslDisabled: "true"
+    host: appliveview.tap-mc.corp.tanzu
+
+package_overlays:
+ - name: "grype"
+   secrets:
+      - name: "grype-airgap-overlay"

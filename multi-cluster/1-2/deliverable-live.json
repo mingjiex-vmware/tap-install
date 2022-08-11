@@ -1,0 +1,45 @@
+{
+  "apiVersion": "carto.run/v1alpha1",
+  "kind": "Deliverable",
+  "metadata": {
+    "creationTimestamp": "2022-07-11T12:07:05Z",
+    "generation": 2,
+    "labels": {
+      "app.kubernetes.io/component": "deliverable",
+      "app.kubernetes.io/part-of": "tanzu-java-web-app",
+      "app.tanzu.vmware.com/deliverable-type": "web",
+      "apps.tanzu.vmware.com/has-tests": "true",
+      "apps.tanzu.vmware.com/workload-type": "web",
+      "carto.run/cluster-template-name": "deliverable-template",
+      "carto.run/resource-name": "deliverable",
+      "carto.run/supply-chain-name": "source-test-scan-to-url",
+      "carto.run/template-kind": "ClusterTemplate",
+      "carto.run/workload-name": "tanzu-java-web-app",
+      "carto.run/workload-namespace": "developer-ns"
+    },
+    "name": "tanzu-java-web-app",
+    "namespace": "developer-ns",
+    "resourceVersion": "54624184",
+    "uid": "94d47728-14f4-4adc-a770-89b26a2df59e"
+  },
+  "spec": {
+    "params": [
+      {
+        "name": "gitops_ssh_secret",
+        "value": "git-https"
+      },
+      {
+        "name": "gitops_sub_path",
+        "value": "config/developer-ns/tanzu-java-web-app"
+      }
+    ],
+    "source": {
+      "git": {
+        "ref": {
+          "branch": "main"
+        },
+        "url": "https://github.com/mylesagray/tap-gitops.git"
+      }
+    }
+  }
+}

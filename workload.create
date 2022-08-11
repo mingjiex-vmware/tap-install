@@ -1,0 +1,1 @@
+tanzu apps workload create tanzu-java-web-app --git-repo https://github.com/mingjiex-vmware/tanzu-java-web-app/ --git-branch main --type web --label app.kubernetes.io/part-of=tanzu-java-web-app --label  apps.tanzu.vmware.com/has-tests=true --yes --namespace $DEVELOPER_NAMESPACE

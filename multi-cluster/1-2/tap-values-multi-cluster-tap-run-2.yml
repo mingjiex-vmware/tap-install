@@ -1,0 +1,17 @@
+profile: run
+ceip_policy_disclosed: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+
+supply_chain: basic
+
+cnrs:
+  domain_name: "live.tap-mc.corp.tanzu"
+
+appliveview_connector:
+  backend:
+    sslDisabled: "true"
+    host: appliveview.tap-mc.corp.tanzu

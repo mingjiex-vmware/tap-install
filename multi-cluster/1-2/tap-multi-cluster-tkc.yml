@@ -1,0 +1,131 @@
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tap-view
+  namespace: tanzu-app-platform
+spec:
+  settings:
+    storage:
+      classes:
+      - vsan-default-storage-policy
+      defaultClass: vsan-default-storage-policy
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-medium
+      storageClass: vsan-default-storage-policy
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+    nodePools:
+    - name: view-nodes
+      replicas: 2
+      vmClass: best-effort-medium
+      storageClass: vsan-default-storage-policy
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 50Gi
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+---
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tap-build
+  namespace: tanzu-app-platform
+spec:
+  settings:
+    storage:
+      classes:
+      - vsan-default-storage-policy
+      defaultClass: vsan-default-storage-policy
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-medium
+      storageClass: vsan-default-storage-policy
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+    nodePools:
+    - name: build-nodes
+      replicas: 2
+      vmClass: best-effort-large
+      storageClass: vsan-default-storage-policy
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 50Gi
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+---
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tap-run
+  namespace: tanzu-app-platform
+spec:
+  settings:
+    storage:
+      classes:
+      - vsan-default-storage-policy
+      defaultClass: vsan-default-storage-policy
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-medium
+      storageClass: vsan-default-storage-policy
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+    nodePools:
+    - name: run-nodes
+      replicas: 2
+      vmClass: best-effort-large
+      storageClass: vsan-default-storage-policy
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 50Gi
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+---
+apiVersion: run.tanzu.vmware.com/v1alpha2
+kind: TanzuKubernetesCluster
+metadata:
+  name: tap-run-2
+  namespace: tanzu-app-platform
+spec:
+  settings:
+    storage:
+      classes:
+      - vsan-default-storage-policy
+      defaultClass: vsan-default-storage-policy
+  topology:
+    controlPlane:
+      replicas: 3
+      vmClass: best-effort-medium
+      storageClass: vsan-default-storage-policy
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a
+    nodePools:
+    - name: run-nodes
+      replicas: 2
+      vmClass: best-effort-large
+      storageClass: vsan-default-storage-policy
+      volumes:
+        - name: containerd
+          mountPath: /var/lib/containerd
+          capacity:
+            storage: 50Gi
+      tkr:
+        reference:
+          name: v1.21.6---vmware.1-tkg.1.b3d708a

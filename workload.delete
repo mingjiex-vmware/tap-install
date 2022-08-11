@@ -1,0 +1,1 @@
+tanzu apps workload delete tanzu-java-web-app -n developer-ns

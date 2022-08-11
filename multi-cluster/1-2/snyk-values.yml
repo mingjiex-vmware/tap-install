@@ -1,0 +1,14 @@
+---
+namespace: developer-ns
+targetImagePullSecret: tap-registry
+snyk:
+  tokenSecret:
+    name: snyk-api-token
+metadataStore:
+  url: https://metadata-store.tap-mc.labs.satm.eng.vmware.com
+  caSecret:
+    name: store-ca-cert
+    importFromNamespace: "" #! since both snyk and grype both enable store, one must leave importFromNamespace blank
+  authSecret:
+    name: store-auth-token
+    importFromNamespace: "" #! since both snyk and grype both enable store, one must leave importFromNamespace blank
