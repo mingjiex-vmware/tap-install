@@ -50,7 +50,10 @@ export INSTALL_REGISTRY_PASSWORD=$(op item get 'Tanzu Network' --fields type=con
 ./install.sh --yes
 done
 ```
-
+### use self-signed caCerts
+kubectl create secret generic kapp-controller-config \
+   --namespace kapp-controller \
+   --from-file caCerts=ca.crt
 ### Import TAP package repo to each cluster
 
 * <https://docs-staging.vmware.com/en/draft/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install.html#relocate-images-to-a-registry-0>
@@ -369,7 +372,16 @@ ootb_supply_chain_testing_scanning:
 
 ```sh
 kubectx tap-build
+
 tanzu package installed update tap -p tap.tanzu.vmware.com -v $TAP_VERSION  --values-file multi-cluster/1-2/tap-values-multi-cluster-tap-build.yml -n tap-install
+```
+Extras:
+
+```sh
+kubectl create configmap harbor-ca-cert --from-file=../ca.crt -n developer-ns
+create YTT patch secret for grype
+add secret git-https to default serviceaccount
+create staging and live branch in advance
 ```
 
 ### Configure `ScanTemplate` and `ScanPolicy`
