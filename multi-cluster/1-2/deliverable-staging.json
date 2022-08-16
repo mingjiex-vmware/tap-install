@@ -2,8 +2,8 @@
   "apiVersion": "carto.run/v1alpha1",
   "kind": "Deliverable",
   "metadata": {
-    "creationTimestamp": "2022-07-11T12:07:05Z",
-    "generation": 2,
+    "creationTimestamp": "2022-08-11T08:25:34Z",
+    "generation": 1,
     "labels": {
       "app.kubernetes.io/component": "deliverable",
       "app.kubernetes.io/part-of": "tanzu-java-web-app",
@@ -19,8 +19,8 @@
     },
     "name": "tanzu-java-web-app",
     "namespace": "developer-ns",
-    "resourceVersion": "54624184",
-    "uid": "94d47728-14f4-4adc-a770-89b26a2df59e"
+    "resourceVersion": "3912483",
+    "uid": "fa59b583-fc95-4dc2-94e7-31d6ab6dd7e7"
   },
   "spec": {
     "params": [
@@ -38,7 +38,7 @@
         "ref": {
           "branch": "staging"
         },
-        "url": "https://github.com/mylesagray/tap-gitops.git"
+        "url": "https://github.com/mingjiex-vmware/tap-gitops.git"
       }
     }
   }
